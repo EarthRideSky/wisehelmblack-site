@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- META TAGS FOR SEO & SOCIAL -->
+    <meta name="description" content="Wisehelm Black: Strategic AI consultancy and enterprise-grade digital tools. Navigate business complexity with intelligence.">
+    <meta name="keywords" content="AI Consultancy, Business Strategy, API Solutions, Digital Transformation, Enterprise AI">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wisehelmblack.com/">
+    <meta property="og:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="og:description" content="Strategic tools and frameworks for ambitious entrepreneurs ready to scale from startup to enterprise.">
+    <meta property="og:image" content="https://wisehelmblack.com/assets/social-preview.jpg"> <!-- You need to make this image! -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://wisehelmblack.com/">
+    <meta property="twitter:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="twitter:description" content="Navigate business complexity with intelligence.">
+    <meta property="twitter:image" content="https://wisehelmblack.com/assets/social-preview.jpg">
+    
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <meta charset="UTF-8">
-    <title>Expert Interviews | Wisehelm Black</title>
-    <!-- Links... -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Wisehelm Black</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .interview-card {
-            display: grid; grid-template-columns: 300px 1fr; gap: 3rem;
-            background: rgba(10, 14, 39, 0.6); border-top: 1px solid var(--gold);
-            padding: 3rem 0; margin-bottom: 4rem; align-items: start;
-        }
-        .interview-img {
-            width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1); filter: grayscale(100%); transition: 0.3s;
-        }
-        .interview-card:hover .interview-img { filter: grayscale(0%); }
-        
-        .int-meta { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .int-title { font-size: 2rem; margin-bottom: 1.5rem; line-height: 1.2; }
-        .int-desc { color: var(--gray); font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px; }
-        
-        @media(max-width:768px){ .interview-card { grid-template-columns: 1fr; } }
-    </style>
 </head>
 <body>
-
+    
     <!-- BACKGROUND -->
     <div class="bg-system">
         <div class="grid-overlay"></div>
@@ -107,42 +108,63 @@
         </div>
     </nav>
 
-    <div class="container" style="padding-top: 10rem;">
-        <header style="margin-bottom: 6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;">
-            <h1>Expert <span class="text-gold">Dialogues</span></h1>
-        </header>
+    <!-- CONTACT HERO & FORM -->
+    <div class="container" style="padding-top: 12rem; padding-bottom: 6rem;">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div class="badge">Let's Build Together</div>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Start Your <span class="text-gold">Transformation</span></h1>
+            <p style="color: var(--gray); font-size: 1.2rem;">Ready to deploy enterprise-grade AI? Fill out the form below and our team will chart the course.</p>
+        </div>
 
-        <!-- INTERVIEW 1 -->
-        <article class="interview-card">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=600&h=600" class="interview-img">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1000px; margin: 0 auto; align-items: start;">
+            
+            <!-- Left Info -->
             <div>
-                <div class="int-meta">Vol. 04 • The Future of Fintech</div>
-                <h2 class="int-title">Navigating the Regulatory Storm with Dr. Aris K.</h2>
-                <p class="int-desc">We sat down with the former regulator turned tech-advocate to discuss how AI compliance will reshape banking in 2026. A masterclass in risk management.</p>
-                <div class="tags">
-                    <span class="tag">#Fintech</span> <span class="tag">#Regulation</span> <span class="tag">#Podcast</span>
+                <div style="margin-bottom: 3rem;">
+                    <h3 style="color: var(--gold); margin-bottom: 1rem;">Direct Contact</h3>
+                    <p style="margin-bottom: 1rem;">📧 info@wisehelmblack.com</p>
+                    <p>🏢 Based in the Cloud, Serving Globally</p>
                 </div>
-                <br>
-                <a href="#" class="btn-secondary">Listen / Read</a>
+                
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">Why Wisehelm?</h3>
+                <ul class="feature-list">
+                    <li><span>Rapid API Deployment</span></li>
+                    <li><span>Tailored Consultancy</span></li>
+                    <li><span>Scalable Architecture</span></li>
+                </ul>
             </div>
-        </article>
 
-        <!-- INTERVIEW 2 -->
-        <article class="interview-card">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?fit=crop&w=600&h=600" class="interview-img">
-            <div>
-                <div class="int-meta">Vol. 03 • Supply Chain AI</div>
-                <h2 class="int-title">The Autonomous Warehouse: A Conversation with Sarah Jenkins</h2>
-                <p class="int-desc">How Apex Logistics cut their error rate by 40% using vision-based inventory systems. The practical reality of deploying AI in physical spaces.</p>
-                <div class="tags">
-                    <span class="tag">#Logistics</span> <span class="tag">#Automation</span> <span class="tag">#CaseStudy</span>
-                </div>
-                <br>
-                <a href="#" class="btn-secondary">Listen / Read</a>
+            <!-- Right Form -->
+            <div class="glass-card" style="padding: 2.5rem;">
+                <form action="https://formspree.io/f/YOUR_ID" method="POST">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label>I'm Interested In</label>
+                        <select name="interest">
+                            <option value="consultancy">Enterprise Consultancy</option>
+                            <option value="api">AI API Solutions</option>
+                            <option value="products">Digital Products</option>
+                            <option value="other">Other Inquiry</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Project Details</label>
+                        <textarea name="message" rows="5" placeholder="Tell us about your needs..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%">Submit Request</button>
+                </form>
             </div>
-        </article>
+        </div>
     </div>
-    
+
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -180,17 +202,15 @@
     </footer>
 
     <script>
-        // Sidebar Logic
+        // Copy Script from Index
         const sidebar = document.getElementById('contactSidebar');
         const trigger = document.getElementById('sidebarTrigger');
         const closeBtn = document.getElementById('sidebarClose');
+        const toggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
 
         trigger.addEventListener('click', () => sidebar.classList.add('active'));
         closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
-
-        // Mobile Menu Logic
-        const toggle = document.querySelector('.mobile-toggle');
-        const navMenu = document.querySelector('.nav-menu');
         toggle.addEventListener('click', () => {
             toggle.classList.toggle('active');
             navMenu.classList.toggle('active');

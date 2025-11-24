@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- META TAGS FOR SEO & SOCIAL -->
+    <meta name="description" content="Wisehelm Black: Strategic AI consultancy and enterprise-grade digital tools. Navigate business complexity with intelligence.">
+    <meta name="keywords" content="AI Consultancy, Business Strategy, API Solutions, Digital Transformation, Enterprise AI">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wisehelmblack.com/">
+    <meta property="og:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="og:description" content="Strategic tools and frameworks for ambitious entrepreneurs ready to scale from startup to enterprise.">
+    <meta property="og:image" content="https://wisehelmblack.com/assets/social-preview.jpg"> <!-- You need to make this image! -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://wisehelmblack.com/">
+    <meta property="twitter:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="twitter:description" content="Navigate business complexity with intelligence.">
+    <meta property="twitter:image" content="https://wisehelmblack.com/assets/social-preview.jpg">
+
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Wisehelm Black</title>
+    <title>Services | Wisehelm Black</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Page Specific Styles */
         .page-header { padding: 12rem 0 4rem; text-align: center; }
         .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
         
-        /* List Layout for Products */
-        .product-row {
+        .services-grid {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 3rem;
-            background: rgba(21, 27, 59, 0.6);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding-bottom: 8rem;
+        }
+        
+        .service-card {
+            background: var(--navy-light);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            align-items: center;
-        }
-        
-        .prod-img {
-            height: 250px;
-            background: var(--navy-dark);
             border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 4rem;
-            border: 1px solid rgba(255, 184, 28, 0.1);
+            overflow: hidden;
+            transition: 0.3s ease;
         }
+        .service-card:hover { transform: translateY(-5px); border-color: var(--gold); }
         
-        .prod-content h2 { color: var(--gold); margin-bottom: 1rem; }
-        .prod-content p { margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--gray); }
-        
-        .tags { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-        .tag { background: rgba(255,255,255,0.05); padding: 0.3rem 0.8rem; border-radius: 4px; font-size: 0.85rem; }
-
-        @media(max-width: 768px) {
-            .product-row { grid-template-columns: 1fr; text-align: center; }
-            .tags { justify-content: center; }
-        }
+        .card-img { height: 200px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+        .card-body { padding: 2rem; }
+        .card-body h3 { color: var(--gold); margin-bottom: 1rem; font-size: 1.4rem; }
+        .card-body p { margin-bottom: 1.5rem; color: var(--gray); }
+        .feature-check { color: var(--white); font-size: 0.9rem; margin-bottom: 0.5rem; display: block; }
+        .feature-check::before { content: '✓'; color: var(--gold); margin-right: 0.5rem; }
     </style>
 </head>
 <body>
@@ -66,7 +75,6 @@
         <div class="pyramid p4"></div>
         <div class="pyramid p5"></div>
     </div>
-
     
     <!-- SIDEBAR TRIGGER -->
     <div class="sidebar-trigger" id="sidebarTrigger">CONTACT US</div>
@@ -94,6 +102,7 @@
         </form>
     </div>
     
+    <!-- Use same Navbar structure, just ensure links work -->
     <!-- NAVIGATION -->
     <nav class="navbar">
         <div class="nav-container">
@@ -129,53 +138,66 @@
 
     <div class="container">
         <header class="page-header">
-            <div class="badge">Digital Assets</div>
-            <h1>Tools for <span class="text-gold">Growth</span></h1>
-            <p style="color: var(--gray); max-width: 600px; margin: 0 auto;">Premium templates, playbooks, and reports to accelerate your execution.</p>
+            <div class="badge">Enterprise Solutions</div>
+            <h1>AI-Powered <span class="text-gold">Intelligence</span></h1>
+            <p style="color: var(--gray); max-width: 600px; margin: 0 auto;">Deploy enterprise-grade AI agents and analytics engines directly into your workflow via API.</p>
         </header>
 
-        <!-- Product 1 -->
-        <div class="product-row">
-            <div class="prod-img">⚡</div>
-            <div class="prod-content">
-                <h2>Strategic Business Planners</h2>
-                <p>Complete frameworks for OKRs, financial modeling, and quarterly execution. Stop guessing and start navigating.</p>
-                <div class="tags">
-                    <span class="tag">Excel / G-Sheets</span>
-                    <span class="tag">Financial Models</span>
-                    <span class="tag">OKR Templates</span>
+        <div class="services-grid">
+            <!-- Card 1 -->
+            <div class="service-card">
+                <div class="card-img">🤖</div>
+                <div class="card-body">
+                    <h3>Intelligent Chatbots</h3>
+                    <p>Context-aware conversational AI that handles support, sales, and internal queries with 24/7 uptime.</p>
+                    <span class="feature-check">Natural Language Processing</span>
+                    <span class="feature-check">CRM Integration</span>
+                    <span class="feature-check">Sentiment Tracking</span>
+                    <br>
+                    <button class="btn-secondary open-sidebar" style="width:100%">Request Demo</button>
                 </div>
-                <button class="btn-primary open-sidebar">Purchase Access</button>
             </div>
-        </div>
 
-        <!-- Product 2 -->
-        <div class="product-row">
-            <div class="prod-img">📘</div>
-            <div class="prod-content">
-                <h2>The Success Playbook Series</h2>
-                <p>Distilled wisdom from 10+ years of consultancy. Actionable guides on scaling, hiring, and system architecture.</p>
-                <div class="tags">
-                    <span class="tag">PDF Guides</span>
-                    <span class="tag">Checklists</span>
-                    <span class="tag">Case Studies</span>
+            <!-- Card 2 -->
+            <div class="service-card">
+                <div class="card-img">📚</div>
+                <div class="card-body">
+                    <h3>Digital Catalogues</h3>
+                    <p>Dynamic, searchable product databases that turn static lists into interactive sales tools.</p>
+                    <span class="feature-check">Visual Search</span>
+                    <span class="feature-check">Real-time Inventory</span>
+                    <span class="feature-check">Auto-Categorization</span>
+                    <br>
+                    <button class="btn-secondary open-sidebar" style="width:100%">View Specs</button>
                 </div>
-                <button class="btn-primary open-sidebar">Purchase Bundle</button>
             </div>
-        </div>
 
-        <!-- Product 3 -->
-        <div class="product-row">
-            <div class="prod-img">📈</div>
-            <div class="prod-content">
-                <h2>Market Insight Reports</h2>
-                <p>Monthly deep-dives into emerging tech trends and sector analysis. Know where the market is going before it gets there.</p>
-                <div class="tags">
-                    <span class="tag">Subscription</span>
-                    <span class="tag">Trend Analysis</span>
-                    <span class="tag">Risk Assessment</span>
+            <!-- Card 3 -->
+            <div class="service-card">
+                <div class="card-img">🧠</div>
+                <div class="card-body">
+                    <h3>Sentiment Analysis</h3>
+                    <p>Decode customer emotions at scale. Analyze reviews, emails, and calls to spot trends.</p>
+                    <span class="feature-check">Multi-channel Monitoring</span>
+                    <span class="feature-check">Crisis Alerts</span>
+                    <span class="feature-check">Trend Forecasting</span>
+                    <br>
+                    <button class="btn-secondary open-sidebar" style="width:100%">Learn More</button>
                 </div>
-                <button class="btn-primary open-sidebar">Subscribe Now</button>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="service-card">
+                <div class="card-img">📊</div>
+                <div class="card-body">
+                    <h3>Portfolio Diagnostics</h3>
+                    <p>Deep-dive analytics for financial portfolios, assessing risk and optimization opportunities.</p>
+                    <span class="feature-check">Risk Heatmaps</span>
+                    <span class="feature-check">Diversification Scoring</span>
+                    <span class="feature-check">Automated Reporting</span>
+                    <br>
+                    <button class="btn-secondary open-sidebar" style="width:100%">Get Audit</button>
+                </div>
             </div>
         </div>
     </div>

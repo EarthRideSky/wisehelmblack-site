@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- META TAGS FOR SEO & SOCIAL -->
+    <meta name="description" content="Wisehelm Black: Strategic AI consultancy and enterprise-grade digital tools. Navigate business complexity with intelligence.">
+    <meta name="keywords" content="AI Consultancy, Business Strategy, API Solutions, Digital Transformation, Enterprise AI">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wisehelmblack.com/">
+    <meta property="og:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="og:description" content="Strategic tools and frameworks for ambitious entrepreneurs ready to scale from startup to enterprise.">
+    <meta property="og:image" content="https://wisehelmblack.com/assets/social-preview.jpg"> <!-- You need to make this image! -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://wisehelmblack.com/">
+    <meta property="twitter:title" content="Wisehelm Black | AI Strategic Consultancy">
+    <meta property="twitter:description" content="Navigate business complexity with intelligence.">
+    <meta property="twitter:image" content="https://wisehelmblack.com/assets/social-preview.jpg">
+
     <!-- FAVICON -->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | Wisehelm Black</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Expert Interviews | Wisehelm Black</title>
+    <!-- Links... -->
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Page Specific Styles */
-        .page-header { padding: 12rem 0 4rem; text-align: center; }
-        .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            padding-bottom: 8rem;
+        .interview-card {
+            display: grid; grid-template-columns: 300px 1fr; gap: 3rem;
+            background: rgba(10, 14, 39, 0.6); border-top: 1px solid var(--gold);
+            padding: 3rem 0; margin-bottom: 4rem; align-items: start;
         }
-        
-        .service-card {
-            background: var(--navy-light);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: 0.3s ease;
+        .interview-img {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1); filter: grayscale(100%); transition: 0.3s;
         }
-        .service-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .interview-card:hover .interview-img { filter: grayscale(0%); }
         
-        .card-img { height: 200px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
-        .card-body { padding: 2rem; }
-        .card-body h3 { color: var(--gold); margin-bottom: 1rem; font-size: 1.4rem; }
-        .card-body p { margin-bottom: 1.5rem; color: var(--gray); }
-        .feature-check { color: var(--white); font-size: 0.9rem; margin-bottom: 0.5rem; display: block; }
-        .feature-check::before { content: '✓'; color: var(--gold); margin-right: 0.5rem; }
+        .int-meta { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .int-title { font-size: 2rem; margin-bottom: 1.5rem; line-height: 1.2; }
+        .int-desc { color: var(--gray); font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px; }
+        
+        @media(max-width:768px){ .interview-card { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
     <!-- BACKGROUND -->
     <div class="bg-system">
         <div class="grid-overlay"></div>
@@ -57,7 +65,7 @@
         <div class="pyramid p4"></div>
         <div class="pyramid p5"></div>
     </div>
-    
+
     <!-- SIDEBAR TRIGGER -->
     <div class="sidebar-trigger" id="sidebarTrigger">CONTACT US</div>
 
@@ -83,8 +91,7 @@
             <button type="submit" class="btn-primary" style="width: 100%">Send Message</button>
         </form>
     </div>
-    
-    <!-- Use same Navbar structure, just ensure links work -->
+
     <!-- NAVIGATION -->
     <nav class="navbar">
         <div class="nav-container">
@@ -118,72 +125,42 @@
         </div>
     </nav>
 
-    <div class="container">
-        <header class="page-header">
-            <div class="badge">Enterprise Solutions</div>
-            <h1>AI-Powered <span class="text-gold">Intelligence</span></h1>
-            <p style="color: var(--gray); max-width: 600px; margin: 0 auto;">Deploy enterprise-grade AI agents and analytics engines directly into your workflow via API.</p>
+    <div class="container" style="padding-top: 10rem;">
+        <header style="margin-bottom: 6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem;">
+            <h1>Expert <span class="text-gold">Dialogues</span></h1>
         </header>
 
-        <div class="services-grid">
-            <!-- Card 1 -->
-            <div class="service-card">
-                <div class="card-img">🤖</div>
-                <div class="card-body">
-                    <h3>Intelligent Chatbots</h3>
-                    <p>Context-aware conversational AI that handles support, sales, and internal queries with 24/7 uptime.</p>
-                    <span class="feature-check">Natural Language Processing</span>
-                    <span class="feature-check">CRM Integration</span>
-                    <span class="feature-check">Sentiment Tracking</span>
-                    <br>
-                    <button class="btn-secondary open-sidebar" style="width:100%">Request Demo</button>
+        <!-- INTERVIEW 1 -->
+        <article class="interview-card">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=600&h=600" class="interview-img">
+            <div>
+                <div class="int-meta">Vol. 04 • The Future of Fintech</div>
+                <h2 class="int-title">Navigating the Regulatory Storm with Dr. Aris K.</h2>
+                <p class="int-desc">We sat down with the former regulator turned tech-advocate to discuss how AI compliance will reshape banking in 2026. A masterclass in risk management.</p>
+                <div class="tags">
+                    <span class="tag">#Fintech</span> <span class="tag">#Regulation</span> <span class="tag">#Podcast</span>
                 </div>
+                <br>
+                <a href="#" class="btn-secondary">Listen / Read</a>
             </div>
+        </article>
 
-            <!-- Card 2 -->
-            <div class="service-card">
-                <div class="card-img">📚</div>
-                <div class="card-body">
-                    <h3>Digital Catalogues</h3>
-                    <p>Dynamic, searchable product databases that turn static lists into interactive sales tools.</p>
-                    <span class="feature-check">Visual Search</span>
-                    <span class="feature-check">Real-time Inventory</span>
-                    <span class="feature-check">Auto-Categorization</span>
-                    <br>
-                    <button class="btn-secondary open-sidebar" style="width:100%">View Specs</button>
+        <!-- INTERVIEW 2 -->
+        <article class="interview-card">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?fit=crop&w=600&h=600" class="interview-img">
+            <div>
+                <div class="int-meta">Vol. 03 • Supply Chain AI</div>
+                <h2 class="int-title">The Autonomous Warehouse: A Conversation with Sarah Jenkins</h2>
+                <p class="int-desc">How Apex Logistics cut their error rate by 40% using vision-based inventory systems. The practical reality of deploying AI in physical spaces.</p>
+                <div class="tags">
+                    <span class="tag">#Logistics</span> <span class="tag">#Automation</span> <span class="tag">#CaseStudy</span>
                 </div>
+                <br>
+                <a href="#" class="btn-secondary">Listen / Read</a>
             </div>
-
-            <!-- Card 3 -->
-            <div class="service-card">
-                <div class="card-img">🧠</div>
-                <div class="card-body">
-                    <h3>Sentiment Analysis</h3>
-                    <p>Decode customer emotions at scale. Analyze reviews, emails, and calls to spot trends.</p>
-                    <span class="feature-check">Multi-channel Monitoring</span>
-                    <span class="feature-check">Crisis Alerts</span>
-                    <span class="feature-check">Trend Forecasting</span>
-                    <br>
-                    <button class="btn-secondary open-sidebar" style="width:100%">Learn More</button>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="service-card">
-                <div class="card-img">📊</div>
-                <div class="card-body">
-                    <h3>Portfolio Diagnostics</h3>
-                    <p>Deep-dive analytics for financial portfolios, assessing risk and optimization opportunities.</p>
-                    <span class="feature-check">Risk Heatmaps</span>
-                    <span class="feature-check">Diversification Scoring</span>
-                    <span class="feature-check">Automated Reporting</span>
-                    <br>
-                    <button class="btn-secondary open-sidebar" style="width:100%">Get Audit</button>
-                </div>
-            </div>
-        </div>
+        </article>
     </div>
-
+    
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
@@ -219,16 +196,19 @@
             </div>
         </div>
     </footer>
+
     <script>
-        // Copy Script from Index
+        // Sidebar Logic
         const sidebar = document.getElementById('contactSidebar');
         const trigger = document.getElementById('sidebarTrigger');
         const closeBtn = document.getElementById('sidebarClose');
-        const toggle = document.querySelector('.mobile-toggle');
-        const navMenu = document.querySelector('.nav-menu');
 
         trigger.addEventListener('click', () => sidebar.classList.add('active'));
         closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
         toggle.addEventListener('click', () => {
             toggle.classList.toggle('active');
             navMenu.classList.toggle('active');
