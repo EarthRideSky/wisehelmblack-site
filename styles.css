@@ -560,3 +560,56 @@ input:focus, textarea:focus, select:focus {
     border-radius: 50%;
     border: 2px solid rgba(255, 184, 28, 0.3);
 }
+
+/* =========================================
+   MOBILE & RESPONSIVENESS PATCH (v1.1)
+   Add this to the VERY BOTTOM of styles.css
+   ========================================= */
+
+@media (max-width: 768px) {
+    /* 1. Fix the Grids (Blog, Services, Reports) */
+    /* Allows cards to shrink down to mobile width without overflowing */
+    .blog-grid, 
+    .services-grid, 
+    .reports-grid, 
+    .cards-grid {
+        grid-template-columns: 1fr !important; /* Force single column */
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
+
+    /* 2. Fix the Contact Page Overflow */
+    .container { padding-left: 1.5rem; padding-right: 1.5rem; overflow-x: hidden; }
+    
+    /* Stack the Contact Layout */
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    /* Fix Glass Card padding on mobile */
+    .glass-card { padding: 1.5rem !important; }
+
+    /* 3. Fix Product & Interview Rows (Stacking) */
+    .product-row, 
+    .interview-card {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    /* Fix Images in Rows */
+    .prod-img, 
+    .interview-img {
+        width: 100%;
+        height: 200px; /* Limit height so they don't take up whole screen */
+    }
+
+    /* 4. Ensure text doesn't overflow */
+    h1 { font-size: 2.2rem !important; word-wrap: break-word; }
+    h2 { font-size: 1.8rem !important; }
+    
+    /* 5. Background Elements (Tame them) */
+    .pyramid { display: none; } /* Hide big pyramids on mobile to save performance/space */
+}
