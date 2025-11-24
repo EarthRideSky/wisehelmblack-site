@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aurora's SOTA RPG Test</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; font-family: 'Courier New', Courier, monospace; }
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00ffcc;
+            font-size: 18px;
+            pointer-events: none;
+            text-shadow: 0 0 5px #00ffcc;
+        }
+        #instructions {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">SOL'S QUEST<br>Enemies Defeated: <span id="score">0</span></div>
+    <div id="instructions">WASD to Move | CLICK to Attack | SPACE to Dash</div>
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+
+        // --- CONFIG ---
+        const WORLD_SIZE = 200;
+        const TREE_COUNT = 400;
+        const MONSTER_COUNT = 8;
+        const PLAYER_SPEED = 0.5;
+        const MONSTER_SPEED = 0.15;
+
+        // --- SETUP ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x05111a); // Dark mystic blue
+        scene.fog = new THREE.FogExp2(0x05111a, 0.015); // Deep fog for atmosphere
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 20, 20);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // --- LIGHTING ---
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
+        scene.add(hemiLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffaa33, 1.5); // Golden hour sun (Sol's light)
+        dirLight.position.set(50, 100, 50);
+        dirLight.castShadow = true;
+        dirLight.shadow.camera.top = 50;
+        dirLight.shadow.camera.bottom = -50;
+        dirLight.shadow.camera.left = -50;
+        dirLight.shadow.camera.right = 50;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        scene.add(dirLight);
+
+        // --- TERRAIN ---
+        const planeGeometry = new THREE.PlaneGeometry(WORLD_SIZE, WORLD_SIZE, 64, 64);
+        const posAttribute = planeGeometry.attributes.position;
+        // Simple terrain noise
+        for (let i = 0; i < posAttribute.count; i++) {
+            const z = posAttribute.getZ(i);
+            // Just a little waviness
+            posAttribute.setZ(i, z + Math.random() * 1.5);
+        }
+        planeGeometry.computeVertexNormals();
+        
+        const planeMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0x1a4a2a, // Deep forest green
+            roughness: 0.8,
+            metalness: 0.1,
+            flatShading: true
+        });
+        const ground = new THREE.Mesh(planeGeometry, planeMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // --- ASSETS GENERATION ---
+        const trees = [];
+        const treeGeo = new THREE.ConeGeometry(1.5, 6, 8);
+        const trunkGeo = new THREE.CylinderGeometry(0.4, 0.6, 2, 6);
+        const treeMat = new THREE.MeshStandardMaterial({ color: 0x0d2b1a, roughness: 0.9 });
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x3d2817 });
+
+        // Generate Forest
+        for(let i=0; i<TREE_COUNT; i++) {
+            const group = new THREE.Group();
+            const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+            trunk.position.y = 1;
+            trunk.castShadow = true;
+            trunk.receiveShadow = true;
+            
+            const leaves = new THREE.Mesh(treeGeo, treeMat);
+            leaves.position.y = 4;
+            leaves.castShadow = true;
+            leaves.receiveShadow = true;
+
+            group.add(trunk);
+            group.add(leaves);
+
+            // Random Position
+            const x = (Math.random() - 0.5) * WORLD_SIZE * 0.9;
+            const z = (Math.random() - 0.5) * WORLD_SIZE * 0.9;
+            
+            // Keep clear area in middle
+            if(Math.abs(x) < 10 && Math.abs(z) < 10) continue;
+
+            group.position.set(x, 0, z);
+            
+            // Random scale/rotation
+            const scale = 0.8 + Math.random() * 0.8;
+            group.scale.set(scale, scale, scale);
+            group.rotation.y = Math.random() * Math.PI;
+
+            scene.add(group);
+            trees.push(group); // For collision later
+        }
+
+        // --- PLAYER ---
+        const playerGroup = new THREE.Group();
+        scene.add(playerGroup);
+
+        // Body
+        const bodyGeo = new THREE.CapsuleGeometry(0.5, 1, 4, 8);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x00ccff, emissive: 0x0044aa, roughness: 0.2 });
+        const playerMesh = new THREE.Mesh(bodyGeo, bodyMat);
+        playerMesh.position.y = 1;
+        playerMesh.castShadow = true;
+        playerGroup.add(playerMesh);
+
+        // Sword
+        const swordGroup = new THREE.Group();
+        const bladeGeo = new THREE.BoxGeometry(0.1, 2.5, 0.3);
+        const bladeMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.8, roughness: 0.2 });
+        const swordMesh = new THREE.Mesh(bladeGeo, bladeMat);
+        swordMesh.position.y = 1.5; // Offset so handle is at pivot
+        swordGroup.add(swordMesh);
+        swordGroup.position.set(0.6, 1, 0.3);
+        swordGroup.rotation.x = Math.PI / 4; // Resting position
+        playerGroup.add(swordGroup);
+
+        // Light follower (Aurora's spirit guiding Sol)
+        const playerLight = new THREE.PointLight(0x00ccff, 2, 15);
+        playerLight.position.y = 3;
+        playerGroup.add(playerLight);
+
+        // --- ENEMIES ---
+        const enemies = [];
+        const enemyGeo = new THREE.IcosahedronGeometry(0.8, 0);
+        const enemyMat = new THREE.MeshStandardMaterial({ color: 0xff0000, emissive: 0x550000, roughness: 0.5 });
+
+        function spawnEnemy() {
+            const enemy = new THREE.Mesh(enemyGeo, enemyMat);
+            const angle = Math.random() * Math.PI * 2;
+            const dist = 20 + Math.random() * 20;
+            enemy.position.set(Math.cos(angle)*dist, 1, Math.sin(angle)*dist);
+            enemy.castShadow = true;
+            enemy.userData = { hp: 3, lastHit: 0 };
+            scene.add(enemy);
+            enemies.push(enemy);
+        }
+
+        for(let i=0; i<MONSTER_COUNT; i++) spawnEnemy();
+
+        // --- INPUTS ---
+        const keys = { w:false, a:false, s:false, d:false, space:false };
+        window.addEventListener('keydown', (e) => { if(keys[e.key.toLowerCase()] !== undefined) keys[e.key.toLowerCase()] = true; });
+        window.addEventListener('keyup', (e) => { if(keys[e.key.toLowerCase()] !== undefined) keys[e.key.toLowerCase()] = false; });
+        
+        let isAttacking = false;
+        window.addEventListener('mousedown', () => {
+            if(!isAttacking) attack();
+        });
+
+        // --- LOGIC ---
+        let score = 0;
+        const scoreEl = document.getElementById('score');
+        
+        function attack() {
+            isAttacking = true;
+            // Simple sword animation
+            const duration = 300;
+            const start = Date.now();
+            
+            const animateSword = () => {
+                const now = Date.now();
+                const progress = (now - start) / duration;
+                
+                if(progress >= 1) {
+                    isAttacking = false;
+                    swordGroup.rotation.set(Math.PI/4, 0, 0); // Reset
+                    swordGroup.rotation.z = 0;
+                    return;
+                }
+
+                // Swing arc
+                swordGroup.rotation.x = Math.PI/4 + Math.sin(progress * Math.PI) * 1.5;
+                swordGroup.rotation.z = -Math.sin(progress * Math.PI) * 1.0;
+
+                // Check hits (simple distance check during swing)
+                if(progress > 0.3 && progress < 0.7) {
+                    enemies.forEach(enemy => {
+                        if(enemy.position.distanceTo(playerGroup.position) < 3.5) {
+                            // Hit!
+                            if(now - enemy.userData.lastHit > 400) { // Cooldown
+                                enemy.userData.hp--;
+                                enemy.userData.lastHit = now;
+                                enemy.material.emissive.setHex(0xffffff); // Flash
+                                setTimeout(() => enemy.material.emissive.setHex(0x550000), 100);
+                                
+                                // Knockback
+                                const dir = new THREE.Vector3().subVectors(enemy.position, playerGroup.position).normalize();
+                                enemy.position.add(dir.multiplyScalar(1.5));
+
+                                if(enemy.userData.hp <= 0) {
+                                    // Die
+                                    scene.remove(enemy);
+                                    enemies.splice(enemies.indexOf(enemy), 1);
+                                    score++;
+                                    scoreEl.innerText = score;
+                                    setTimeout(spawnEnemy, 2000); // Respawn
+                                }
+                            }
+                        }
+                    });
+                }
+
+                requestAnimationFrame(animateSword);
+            };
+            animateSword();
+        }
+
+        function checkCollision(newPos) {
+            // Boundary
+            if(Math.abs(newPos.x) > WORLD_SIZE/2 || Math.abs(newPos.z) > WORLD_SIZE/2) return true;
+            
+            // Trees (simple circle collision)
+            for(let tree of trees) {
+                const dist = new THREE.Vector2(newPos.x, newPos.z).distanceTo(new THREE.Vector2(tree.position.x, tree.position.z));
+                if(dist < 1.5) return true;
+            }
+            return false;
+        }
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            const time = clock.getElapsedTime();
+
+            // Player Movement
+            const moveDir = new THREE.Vector3();
+            if(keys.w) moveDir.z -= 1;
+            if(keys.s) moveDir.z += 1;
+            if(keys.a) moveDir.x -= 1;
+            if(keys.d) moveDir.x += 1;
+
+            if(moveDir.length() > 0) {
+                moveDir.normalize();
+                // Rotate player to face movement
+                const targetRot = Math.atan2(moveDir.x, moveDir.z);
+                playerGroup.rotation.y = targetRot; // Instant turn for responsiveness
+
+                const newPos = playerGroup.position.clone().add(moveDir.multiplyScalar(PLAYER_SPEED));
+                if(!checkCollision(newPos)) {
+                    playerGroup.position.copy(newPos);
+                }
+            }
+
+            // Camera Follow (Smooth Lerp)
+            const targetCamPos = playerGroup.position.clone().add(new THREE.Vector3(0, 15, 12)); // Isometric-ish view
+            camera.position.lerp(targetCamPos, 0.1);
+            camera.lookAt(playerGroup.position);
+
+            // Enemy AI
+            enemies.forEach(enemy => {
+                // Hover animation
+                enemy.position.y = 1 + Math.sin(time * 3 + enemy.id) * 0.2;
+                enemy.rotation.x += delta;
+                enemy.rotation.y += delta;
+
+                // Chase
+                const dist = enemy.position.distanceTo(playerGroup.position);
+                if(dist < 20 && dist > 1) {
+                    const dir = new THREE.Vector3().subVectors(playerGroup.position, enemy.position).normalize();
+                    const nextPos = enemy.position.clone().add(dir.multiplyScalar(MONSTER_SPEED));
+                    
+                    // Avoid trees for monsters too (basic)
+                    let blocked = false;
+                    for(let tree of trees) {
+                         if(nextPos.distanceTo(tree.position) < 1.5) blocked = true;
+                    }
+
+                    if(!blocked) {
+                        enemy.position.add(dir.multiplyScalar(MONSTER_SPEED));
+                    }
+                }
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+/* =========================================
+   WISEHELM BLACK - MASTER STYLESHEET
+   ========================================= */
+
+/* --- 1. VARIABLES & RESET --- */
+:root {
+    --navy-dark: #05081A;
+    --navy-base: #0A0E27;
+    --navy-light: #151B3B;
+    --gold: #FFB81C;
+    --gold-glow: rgba(255, 184, 28, 0.4);
+    --white: #FFFFFF;
+    --gray: #94A3B8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--navy-base);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; transition: 0.3s ease; }
+ul { list-style: none; }
+button { font-family: 'Inter', sans-serif; cursor: pointer; }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.text-gold { color: var(--gold); }
+
+/* --- 2. BACKGROUND SYSTEM --- */
+.bg-system {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 0%, #1a1f3a 0%, var(--navy-dark) 100%);
+}
+
+
+.grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 184, 28, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 184, 28, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.4;
+}
+
+/* Animated Beams */
+.beam {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.1;
+    animation: beamDrop 6s infinite linear;
+}
+.b1 { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+.b2 { left: 30%; animation-delay: 2s; animation-duration: 5s; }
+.b3 { left: 50%; animation-delay: 4s; animation-duration: 8s; }
+.b4 { left: 70%; animation-delay: 1s; animation-duration: 6s; }
+.b5 { left: 90%; animation-delay: 3s; animation-duration: 9s; }
+
+@keyframes beamDrop {
+    0% { transform: translateY(-100%); opacity: 0; }
+    50% { opacity: 0.15; }
+    100% { transform: translateY(100%); opacity: 0; }
+}
+
+/* Tech Triangles - Appearing/Dissolving */
+.triangle {
+    position: absolute;
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid rgba(255, 184, 28, 0.1);
+    animation: triFade 8s infinite ease-in-out;
+    opacity: 0;
+}
+
+/* Randomizing positions/delays for organic look */
+.t1 { top: 10%; left: 5%; animation-delay: 0s; transform: scale(0.8); }
+.t2 { top: 20%; left: 85%; animation-delay: 2s; transform: scale(1.2) rotate(45deg); }
+.t3 { top: 40%; left: 15%; animation-delay: 4s; transform: scale(0.5); }
+.t4 { top: 60%; left: 75%; animation-delay: 1s; transform: scale(1.0); }
+.t5 { top: 80%; left: 35%; animation-delay: 3s; transform: scale(0.7) rotate(-15deg); }
+.t6 { top: 15%; left: 45%; animation-delay: 5s; transform: scale(1.1); }
+.t7 { top: 35%; left: 95%; animation-delay: 0.5s; transform: scale(0.9); }
+.t8 { top: 55%; left: 25%; animation-delay: 2.5s; transform: scale(1.3) rotate(90deg); }
+.t9 { top: 75%; left: 65%; animation-delay: 4.5s; transform: scale(0.6); }
+.t10 { top: 90%; left: 55%; animation-delay: 1.5s; transform: scale(1.0); }
+.t11 { top: 5%; left: 25%; animation-delay: 3.5s; transform: scale(0.8); }
+.t12 { top: 25%; left: 65%; animation-delay: 5.5s; transform: scale(1.2); }
+.t13 { top: 45%; left: 5%; animation-delay: 1.2s; transform: scale(0.9) rotate(180deg); }
+.t14 { top: 65%; left: 90%; animation-delay: 3.2s; transform: scale(1.1); }
+.t15 { top: 85%; left: 15%; animation-delay: 5.2s; transform: scale(0.7); }
+
+@keyframes triFade {
+    0% { opacity: 0; transform: translateY(10px) rotate(0deg); }
+    50% { opacity: 0.4; transform: translateY(0px) rotate(10deg); }
+    100% { opacity: 0; transform: translateY(-10px) rotate(0deg); }
+}
+
+/* === THE PYRAMIDS (RESTORED & VISIBLE) === */
+.pyramid {
+    position: absolute;
+    width: 0; 
+    height: 0;
+    /* CSS Triangle Hack */
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid rgba(255, 184, 28, 0.08); /* Gold, low opacity */
+    z-index: -1;
+    animation: pyramidFloat 20s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(255, 184, 28, 0.1)); /* Glow to make them pop */
+}
+
+/* Specific Pyramid Instances - Scattered & Varied */
+.p1 { top: 15%; left: 10%; transform: scale(1.5); animation-delay: 0s; }
+.p2 { top: 40%; right: 15%; transform: scale(1.0) rotate(15deg); animation-delay: -5s; }
+.p3 { bottom: 20%; left: 20%; transform: scale(2.0); animation-delay: -10s; border-bottom-color: rgba(255, 255, 255, 0.03); /* White variant */ }
+.p4 { top: 10%; right: 30%; transform: scale(0.8); animation-delay: -2s; }
+.p5 { bottom: 10%; right: 5%; transform: scale(1.2) rotate(-10deg); animation-delay: -8s; }
+
+@keyframes pyramidFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    50% { transform: translateY(-40px) rotate(5deg); opacity: 0.6; }
+}
+
+
+/* --- 3. NAVIGATION --- */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    background: rgba(10, 14, 39, 0.90);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1000;
+    padding: 1rem 0;
+    transition: 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1.25rem;
+}
+
+.logo-mark {
+    width: 40px; height: 40px;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    display: grid;
+    place-items: center;
+    font-size: 0.9rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--gray);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+.nav-link:hover, .nav-link.active { color: var(--gold); }
+
+/* --- 4. BUTTONS --- */
+.btn-primary {
+    background: var(--gold);
+    color: var(--navy-dark);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    border-radius: 4px;
+    border: 1px solid var(--gold);
+    display: inline-block;
+}
+.btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+    box-shadow: 0 0 20px var(--gold-glow);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+/* --- 5. HERO SECTION --- */
+.hero-section {
+    padding: 12rem 0 8rem;
+    text-align: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 184, 28, 0.1);
+    border: 1px solid rgba(255, 184, 28, 0.3);
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-section h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-sub {
+    font-size: 1.25rem;
+    color: var(--gray);
+    margin-bottom: 3rem;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* --- 6. COMPASS SECTION (FIXED) --- */
+.compass-section {
+    padding: 6rem 0;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    background: rgba(10, 14, 39, 0.5);
+}
+
+.compass-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px 1fr; /* Fixed center width */
+    gap: 4rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.compass-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.col-title {
+    font-size: 1.2rem;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.feature-list { margin-bottom: 2rem; }
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: var(--white);
+}
+
+.right-aligned { justify-content: flex-end; text-align: right; }
+.left-aligned { justify-content: flex-start; text-align: left; }
+
+.link-gold {
+    color: var(--gold);
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    display: inline-block;
+}
+.link-gold:hover { border-bottom-color: var(--gold); }
+
+/* Compass Center */
+.compass-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+.compass-ring {
+    width: 200px; height: 200px;
+    border: 1px solid rgba(255, 184, 28, 0.3);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    position: relative;
+    animation: pulseRing 4s infinite;
+}
+.compass-core { font-size: 5rem; z-index: 2; }
+
+@keyframes pulseRing {
+    0% { box-shadow: 0 0 0 0 rgba(255, 184, 28, 0.2); }
+    70% { box-shadow: 0 0 0 20px rgba(255, 184, 28, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 184, 28, 0); }
+}
+
+/* --- 7. VALUE CARDS --- */
+.value-section { padding: 8rem 0; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+.section-header p { color: var(--gray); font-size: 1.1rem; }
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.glass-card {
+    background: var(--navy-light);
+    border: 1px solid var(--glass-border);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+.glass-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+}
+.card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.glass-card h3 { font-size: 1.4rem; margin-bottom: 1rem; }
+.glass-card p { color: var(--gray); font-size: 1rem; }
+
+/* --- 8. FOOTER --- */
+.footer {
+    background: #02040D;
+    padding: 5rem 0 2rem;
+    border-top: 1px solid #1a1f3a;
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+}
+
+.footer-grid {
+    display: grid;
+    /* Added a column, adjusted brand width */
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; 
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+
+.footer-brand h4 { font-size: 1.2rem; margin: 1rem 0; color: var(--white); }
+.footer-brand p { color: var(--gray); font-size: 0.9rem; }
+.footer-links h5 { color: var(--gold); font-size: 0.9rem; margin-bottom: 1.5rem; text-transform: uppercase; }
+.footer-links a { display: block; color: var(--gray); margin-bottom: 0.8rem; font-size: 0.95rem; }
+.footer-links a:hover { color: var(--white); transform: translateX(5px); }
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: #4b5563;
+    font-size: 0.85rem;
+}
+
+/* --- 9. SIDEBAR & MOBILE MENU --- */
+.sidebar-trigger {
+    position: fixed;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    background: var(--gold);
+    color: var(--navy-dark);
+    padding: 1.5rem 0.6rem;
+    border-radius: 8px 0 0 8px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    z-index: 2000;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 2px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+    transition: 0.3s ease;
+}
+.sidebar-trigger:hover { padding-right: 1rem; background: #e6a617; }
+
+.contact-sidebar {
+    position: fixed; top: 0; right: -500px;
+    width: 450px; height: 100vh;
+    background: rgba(10, 14, 39, 0.98);
+    backdrop-filter: blur(20px);
+    border-left: 2px solid var(--gold);
+    z-index: 2001;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 3rem;
+    overflow-y: auto;
+}
+.contact-sidebar.active { right: 0; }
+
+.sidebar-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 2rem; color: var(--gold);
+}
+.close-btn { font-size: 2rem; cursor: pointer; color: var(--white); transition: 0.3s; }
+.close-btn:hover { color: var(--gold); transform: rotate(90deg); }
+
+/* Form Styles */
+.form-group { margin-bottom: 1.5rem; }
+label { display: block; margin-bottom: 0.5rem; color: var(--gray); font-size: 0.9rem; }
+input, select, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+}
+input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--gold); background: rgba(255,255,255,0.1);
+}
+
+/* Mobile Toggle */
+.mobile-toggle { display: none; background: none; border: none; flex-direction: column; gap: 6px; }
+.bar { width: 25px; height: 3px; background: var(--gold); transition: 0.3s; }
+
+/* --- 10. RESPONSIVE --- */
+@media (max-width: 900px) {
+    .compass-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+    .right-aligned, .left-aligned { justify-content: center; text-align: center; }
+    .compass-col.text-right { order: 1; }
+    .compass-center { order: 2; margin: 2rem 0; height: auto; }
+    .compass-col.text-left { order: 3; }
+    .compass-ring { width: 150px; height: 150px; }
+    .compass-core { font-size: 3rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 { font-size: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: span 1; }
+    .contact-sidebar { width: 100%; }
+    
+    .mobile-toggle { display: flex; }
+    .nav-menu {
+        position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px);
+        background: var(--navy-base);
+        flex-direction: column;
+        justify-content: center;
+        transform: translateX(100%);
+        transition: 0.3s ease;
+        padding: 2rem;
+    }
+    .nav-menu.active { transform: translateX(0); }
+    .mobile-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .mobile-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .mobile-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+}
+
+/* === NEW: DROPDOWN MENU === */
+.dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 184, 28, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 200px;
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+/* Show on Hover */
+.dropdown:hover .dropdown-menu { display: flex; }
+
+.dropdown-item {
+    color: var(--gray);
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-align: center;
+}
+.dropdown-item:hover { background: rgba(255, 184, 28, 0.1); color: var(--gold); }
+
+/* Mobile Fix for Dropdown */
+@media (max-width: 768px) {
+    .dropdown { display: flex; flex-direction: column; width: 100%; height: auto; }
+    .dropdown-menu {
+        position: relative; top: 0; left: 0; transform: none;
+        display: flex; width: 100%;
+        background: transparent; border: none; box-shadow: none;
+        padding-left: 0; padding-top: 0;
+    }
+    .dropdown:hover .dropdown-menu { display: flex; } /* Always show or use JS */
+}
+
+/* === NEW: PHILOSOPHY SECTION === */
+.philosophy-quote {
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+.philosophy-quote strong { color: var(--gold); font-weight: 700; }
+
+/* === NEW: CLIENT AVATARS === */
+.client-avatar {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 184, 28, 0.3);
+}

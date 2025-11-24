@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisehelm Black | AI Strategic Consultancy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="bg-system">
+        <div class="grid-overlay"></div>
+        <!-- Beams -->
+        <div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div>
+        <div class="beam b4"></div><div class="beam b5"></div>
+    
+        <!-- Tech Triangles (Small/Fast) -->    
+        <div class="triangle t1"></div><div class="triangle t2"></div><div class="triangle t3"></div>
+        <div class="triangle t4"></div><div class="triangle t5"></div><div class="triangle t6"></div>
+        <div class="triangle t7"></div><div class="triangle t8"></div>
+
+        <!-- THE PYRAMIDS (Big/Slow) -->
+        <div class="pyramid p1"></div>
+        <div class="pyramid p2"></div>
+        <div class="pyramid p3"></div>
+        <div class="pyramid p4"></div>
+        <div class="pyramid p5"></div>
+    </div>
+
+    <!-- SIDEBAR TRIGGER -->
+    <div class="sidebar-trigger" id="sidebarTrigger">CONTACT US</div>
+
+    <!-- SIDEBAR PANEL -->
+    <div class="contact-sidebar" id="contactSidebar">
+        <div class="sidebar-header">
+            <h2>Quick Contact</h2>
+            <div class="close-btn" id="sidebarClose">&times;</div>
+        </div>
+        <form class="sidebar-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%">Send Message</button>
+        </form>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">WB</div>
+                <span class="logo-text">Wisehelm Black</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+
+
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+
+                <!-- DROPDOWN ITEM -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Our Insights ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="blog.html" class="dropdown-item">Blog (Coming Soon)</a>
+                        <a href="reports.html" class="dropdown-item">Market Reports</a>
+                        <a href="interviews.html" class="dropdown-item">Expert Interviews</a>
+                    </div>
+                </div>
+
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="contact.html" class="btn-primary">Contact Us to Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">AI-Powered Strategy</div>
+                <h1>Navigate Complexity with <span class="text-gold">Intelligence</span></h1>
+                <p class="hero-sub">Strategic tools and frameworks for ambitious entrepreneurs ready to scale from startup to enterprise.</p>
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-primary">Start Navigation</a>
+                    <a href="services.html" class="btn-secondary">Explore Solutions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPASS SECTION -->
+    <section class="compass-section">
+        <div class="container">
+            <div class="compass-grid">
+                
+                <!-- Left Column -->
+                <div class="compass-col text-right">
+                    <h3 class="col-title">AI Solutions</h3>
+                    <ul class="feature-list right-aligned">
+                        <li><span>Intelligent Chatbots</span> <span>🤖</span></li>
+                        <li><span>Digital Catalogues</span> <span>📚</span></li>
+                        <li><span>Sentiment Analysis</span> <span>🧠</span></li>
+                        <li><span>Portfolio Diagnostics</span> <span>📊</span></li>
+                    </ul>
+                    <a href="services.html" class="link-gold">View Services &rarr;</a>
+                </div>
+
+                <!-- Center Compass -->
+                <div class="compass-center">
+                    <div class="compass-ring">
+                        <div class="compass-core">🧭</div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="compass-col text-left">
+                    <h3 class="col-title">Digital Products</h3>
+                    <ul class="feature-list left-aligned">
+                        <li><span>⚡</span> <span>Business Planners</span></li>
+                        <li><span>📘</span> <span>Success E-Books</span></li>
+                        <li><span>📈</span> <span>Market Reports</span></li>
+                        <li><span>✍️</span> <span>AI Content Gen</span></li>
+                    </ul>
+                    <a href="products.html" class="link-gold">View Products &rarr;</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUE SECTION -->
+    <section class="value-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Wisehelm Advantage</h2>
+                <p>We build the systems that build your business.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="glass-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Strategic Guidance</h3>
+                    <p>Expert methodology and frameworks to navigate complex challenges with absolute clarity.</p>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Built for Growth</h3>
+                    <p>Scalable, robust systems designed to grow with your business from day one.</p>
+                </div>
+                <div class="glass-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Pro Consultancy</h3>
+                    <p>Tailored services combining business intelligence, CRM expertise, and AI enablement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- OUR PHILOSOPHY -->
+    <section style="padding: 8rem 0; text-align: center; background: linear-gradient(to bottom, var(--navy-base), #0d1229);">
+        <div class="container">
+            <div class="badge">Our Philosophy</div>
+            <blockquote class="philosophy-quote">
+                "We believe true intelligence isn't artificial. It is the synthesis of <br><strong>Human Intent</strong> and <strong>Machine Scale</strong>.<br>
+                We don't build systems to replace the captain.<br>
+                We build the systems that <strong>crown</strong> them."
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS (Social Proof) -->
+    <section class="testimonials-section" style="padding: 6rem 0 8rem; position: relative; overflow: hidden;">
+        <!-- Faint Background Orb -->
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(255, 184, 28, 0.05) 0%, transparent 70%); pointer-events: none;"></div>
+        
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="section-header">
+                <h2>Trusted by <span class="text-gold">Visionaries</span></h2>
+                <p style="color: var(--gray);">Leaders who navigate with Wisehelm.</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                
+                <!-- Client 1: The Executive -->
+                <div class="glass-card" style="padding: 2.5rem;">
+                    <div style="color: var(--gold); font-size: 2rem; line-height: 1; margin-bottom: 1.5rem; opacity: 0.5;">"</div>
+                    <p style="color: var(--gray); font-style: italic; margin-bottom: 2rem; min-height: 80px;">
+                        "The automated dispatch system Wisehelm architected didn't just save us man-hours; it saved our entire Q4 logistics timeline. Brutally effective."
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                        <img src="https://ui-avatars.com/api/?name=Marcus+Thorne&background=151B3B&color=FFB81C&bold=true" alt="Marcus" class="client-avatar">
+                        <div>
+                            <h5 style="color: var(--white); font-size: 0.95rem; margin-bottom: 2px;">Marcus Thorne</h5>
+                            <p style="color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Dir. Ops, Apex Logistics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client 2: The Skeptic Turned Believer -->
+                <div class="glass-card" style="padding: 2.5rem;">
+                    <div style="color: var(--gold); font-size: 2rem; line-height: 1; margin-bottom: 1.5rem; opacity: 0.5;">"</div>
+                    <p style="color: var(--gray); font-style: italic; margin-bottom: 2rem; min-height: 80px;">
+                        "I was skeptical about 'AI Consultancy' buzzwords. Wisehelm's Portfolio Diagnostics proved me wrong in 24 hours. The data clarity is terrifyingly good."
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                        <img src="https://ui-avatars.com/api/?name=Elena+Volkov&background=151B3B&color=FFB81C&bold=true" alt="Elena" class="client-avatar">
+                        <div>
+                            <h5 style="color: var(--white); font-size: 0.95rem; margin-bottom: 2px;">Elena Volkov</h5>
+                            <p style="color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">Founder, Lumia Fintech</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client 3: The Tech Lead -->
+                <div class="glass-card" style="padding: 2.5rem;">
+                    <div style="color: var(--gold); font-size: 2rem; line-height: 1; margin-bottom: 1.5rem; opacity: 0.5;">"</div>
+                    <p style="color: var(--gray); font-style: italic; margin-bottom: 2rem; min-height: 80px;">
+                        "Finally, a team that understands legacy code AND business logic. The API integration was seamless. They don't just consult; they build."
+                    </p>
+                    <div style="display: flex; align-items: center; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                        <img src="https://ui-avatars.com/api/?name=Kenji+Sato&background=151B3B&color=FFB81C&bold=true" alt="Kenji" class="client-avatar">
+                        <div>
+                            <h5 style="color: var(--white); font-size: 0.95rem; margin-bottom: 2px;">Dr. Kenji Sato</h5>
+                            <p style="color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">CTO, Nexus Systems</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-mark" style="margin-bottom:1rem">WB</div>
+                    <h4>Wisehelm Black</h4>
+                    <p>At the helm of AI transformation.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Who We Are</h5>
+                    <a href="history.html">History</a>
+                    <a href="legal.html">Legal</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Services</h5>
+                    <a href="services.html">API Solutions</a>
+                    <a href="contact.html">Consultancy</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Products</h5>
+                    <a href="products.html">Templates</a>
+                    <a href="products.html">E-Books</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Connect</h5>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Wisehelm Black. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar Logic
+        const sidebar = document.getElementById('contactSidebar');
+        const trigger = document.getElementById('sidebarTrigger');
+        const closeBtn = document.getElementById('sidebarClose');
+
+        trigger.addEventListener('click', () => sidebar.classList.add('active'));
+        closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

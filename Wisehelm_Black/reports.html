@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <meta charset="UTF-8">
+    <title>Market Reports | Wisehelm Black</title>
+    <!-- Links... -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Dense Grid */
+            gap: 1.5rem; /* Tighter gap */
+        }
+        
+        .report-card {
+            background: #0f1329;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 6px;
+            transition: 0.2s;
+            display: flex; flex-direction: column;
+        }
+        .report-card:hover { border-color: var(--gold); background: #151b3b; }
+        
+        .rep-date { font-size: 0.8rem; color: var(--gold); margin-bottom: 0.5rem; font-family: monospace; }
+        .rep-title { font-size: 1.2rem; margin-bottom: 0.8rem; line-height: 1.4; color: var(--white); font-weight: 700; }
+        .rep-desc { font-size: 0.9rem; color: var(--gray); margin-bottom: 1.5rem; flex: 1; }
+        
+        .rep-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: auto; }
+        .btn-small { 
+            padding: 0.5rem; text-align: center; font-size: 0.85rem; border-radius: 4px; font-weight: 600;
+        }
+        .btn-view { background: rgba(255,255,255,0.1); color: var(--white); }
+        .btn-view:hover { background: rgba(255,255,255,0.2); }
+        .btn-dl { background: var(--navy-dark); border: 1px solid var(--gold); color: var(--gold); }
+        .btn-dl:hover { background: var(--gold); color: var(--navy-dark); }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="bg-system">
+        <div class="grid-overlay"></div>
+        <!-- Beams -->
+        <div class="beam b1"></div><div class="beam b2"></div><div class="beam b3"></div>
+        <div class="beam b4"></div><div class="beam b5"></div>
+    
+        <!-- Tech Triangles (Small/Fast) -->    
+        <div class="triangle t1"></div><div class="triangle t2"></div><div class="triangle t3"></div>
+        <div class="triangle t4"></div><div class="triangle t5"></div><div class="triangle t6"></div>
+        <div class="triangle t7"></div><div class="triangle t8"></div>
+
+        <!-- THE PYRAMIDS (Big/Slow) -->
+        <div class="pyramid p1"></div>
+        <div class="pyramid p2"></div>
+        <div class="pyramid p3"></div>
+        <div class="pyramid p4"></div>
+        <div class="pyramid p5"></div>
+    </div>
+
+    <!-- SIDEBAR TRIGGER -->
+    <div class="sidebar-trigger" id="sidebarTrigger">CONTACT US</div>
+
+    <!-- SIDEBAR PANEL -->
+    <div class="contact-sidebar" id="contactSidebar">
+        <div class="sidebar-header">
+            <h2>Quick Contact</h2>
+            <div class="close-btn" id="sidebarClose">&times;</div>
+        </div>
+        <form class="sidebar-form" action="https://formspree.io/f/YOUR_ID" method="POST">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%">Send Message</button>
+        </form>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-mark">WB</div>
+                <span class="logo-text">Wisehelm Black</span>
+            </a>
+            
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </button>
+
+
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+
+                <!-- DROPDOWN ITEM -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link">Our Insights ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="blog.html" class="dropdown-item">Blog (Coming Soon)</a>
+                        <a href="reports.html" class="dropdown-item">Market Reports</a>
+                        <a href="interviews.html" class="dropdown-item">Expert Interviews</a>
+                    </div>
+                </div>
+
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="contact.html" class="btn-primary">Contact Us to Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 10rem;">
+        <header style="margin-bottom: 4rem;">
+            <h1>Market <span class="text-gold">Intelligence</span></h1>
+            <p style="color:var(--gray)">Q4 2025 Sector Analysis & Forecasts</p>
+        </header>
+
+        <div class="reports-grid">
+            
+            <!-- REPORT 1 -->
+            <div class="report-card">
+                <div class="rep-date">NOV 2025 • PDF • 4.2MB</div>
+                <h3 class="rep-title">Global SaaS Valuation Multiples: Q4 Forecast</h3>
+                <p class="rep-desc">Analysis of public SaaS multiples adjusting for AI-integration velocity. Includes sector breakdown for Fintech, Healthtech, and Logistics.</p>
+                <div class="tags" style="margin-bottom: 1rem;">
+                    <span class="tag">#Finance</span> <span class="tag">#SaaS</span>
+                </div>
+                <div class="rep-actions">
+                    <!-- Opens PDF in new tab -->
+                    <a href="assets/report-q4.pdf" target="_blank" class="btn-small btn-view">View PDF</a>
+                    <!-- Triggers Download -->
+                    <a href="assets/report-q4.pdf" download class="btn-small btn-dl">Download ⬇</a>
+                </div>
+            </div>
+
+            <!-- REPORT 2 -->
+            <div class="report-card">
+                <div class="rep-date">OCT 2025 • PDF • 2.8MB</div>
+                <h3 class="rep-title">The Agentic Economy: 2026 Outlook</h3>
+                <p class="rep-desc">Deep dive into the shift from Chat-UI to Agent-based workflows. Predictive timeline for enterprise adoption of autonomous agents.</p>
+                <div class="tags" style="margin-bottom: 1rem;">
+                    <span class="tag">#AI-Agents</span> <span class="tag">#Macro</span>
+                </div>
+                <div class="rep-actions">
+                    <a href="#" class="btn-small btn-view">View PDF</a>
+                    <a href="#" download class="btn-small btn-dl">Download ⬇</a>
+                </div>
+            </div>
+
+            <!-- REPORT 3 -->
+            <div class="report-card">
+                <div class="rep-date">SEP 2025 • PDF • 5.1MB</div>
+                <h3 class="rep-title">Cybersecurity in the LLM Era</h3>
+                <p class="rep-desc">Risk assessment vectors for prompt injection and data exfiltration in enterprise LLM deployments. Mitigation strategies included.</p>
+                <div class="tags" style="margin-bottom: 1rem;">
+                    <span class="tag">#Security</span> <span class="tag">#Compliance</span>
+                </div>
+                <div class="rep-actions">
+                    <a href="#" class="btn-small btn-view">View PDF</a>
+                    <a href="#" download class="btn-small btn-dl">Download ⬇</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-mark" style="margin-bottom:1rem">WB</div>
+                    <h4>Wisehelm Black</h4>
+                    <p>At the helm of AI transformation.</p>
+                </div>
+                <div class="footer-links">
+                    <h5>Who We Are</h5>
+                    <a href="history.html">History</a>
+                    <a href="legal.html">Legal</a>
+                    <a href="sitemap.html">Sitemap</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Services</h5>
+                    <a href="services.html">API Solutions</a>
+                    <a href="contact.html">Consultancy</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Products</h5>
+                    <a href="products.html">Templates</a>
+                    <a href="products.html">E-Books</a>
+                </div>
+                <div class="footer-links">
+                    <h5>Connect</h5>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Wisehelm Black. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar Logic
+        const sidebar = document.getElementById('contactSidebar');
+        const trigger = document.getElementById('sidebarTrigger');
+        const closeBtn = document.getElementById('sidebarClose');
+
+        trigger.addEventListener('click', () => sidebar.classList.add('active'));
+        closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+
+        // Mobile Menu Logic
+        const toggle = document.querySelector('.mobile-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
