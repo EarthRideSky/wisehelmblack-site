@@ -613,3 +613,16 @@ input:focus, textarea:focus, select:focus {
     /* 5. Background Elements (Tame them) */
     .pyramid { display: none; } /* Hide big pyramids on mobile to save performance/space */
 }
+
+/* Add this to styles.css */
+.prod-img {
+    padding: 0; /* Remove padding so image touches edges */
+    overflow: hidden; /* Clips the corners */
+}
+
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This prevents stretching! */
+    display: block;
+}

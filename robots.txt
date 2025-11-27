@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wisehelmblack.com/sitemap.html
+Sitemap: https://wisehelmblack.com/sitemap.html 
+.çpo bvc
+*098 1KTV4
