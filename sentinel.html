@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crash Sentinel — Wisehelm Black</title>
+<meta name="description" content="Economic crash early warning system. Multi-signal divergence tracker with Sherlock Model.">
+<meta property="og:title" content="Crash Sentinel — Economic Early Warning System">
+<meta property="og:description" content="31 indicators, 7 categories, Sherlock Model. Real-time z-score deviation analysis.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(180deg,#060810,#0a0e1a 30%,#080c16);color:#e5e7eb;font-family:'IBM Plex Mono',monospace;min-height:100vh;padding:16px}
+.wrap{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;border-radius:50%;pointer-events:none;transition:background 2s}
+.scan{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.title{font-size:18px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.9);display:inline-flex;align-items:center;gap:6px}
+.sub{font-size:9px;color:rgba(255,255,255,.27);letter-spacing:2px;margin-top:4px}
+.time{font-size:14px;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}
+.date{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:1px}
+.btn{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);border-radius:4px;padding:10px 24px;cursor:pointer;color:#22c55e;font-size:12px;font-weight:700;letter-spacing:2px;font-family:'IBM Plex Mono',monospace}
+.btn:disabled{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.4);cursor:wait}
+.alert-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.4);border-radius:8px;padding:12px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;box-shadow:0 0 40px rgba(239,68,68,.15)}
+.alert-text{font-size:12px;color:#ef4444;font-weight:600;letter-spacing:1px;line-height:1.5}
+.card{background:#0d0d1a;border-radius:8px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .3s}
+.card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.card-title{font-size:13px;font-weight:600;color:#ddd;letter-spacing:1px;display:inline-flex;align-items:center;gap:4px}
+.bar-bg{height:4px;background:#1a1a2e;border-radius:2px;overflow:hidden;margin-bottom:8px}
+.bar-fill{height:100%;border-radius:2px;transition:width 1s}
+.stats{display:flex;justify-content:space-between;font-size:11px;color:#666}
+.ind-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid #1a1a2e;align-items:center}
+.ind-desc{font-size:9px;color:#444;padding:0 0 4px 16px}
+.breach-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #1a1a2e}
+.section-box{background:rgba(13,13,26,.53);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:14px;margin-bottom:20px}
+.section-title{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:2px;margin-bottom:10px;display:inline-flex;align-items:center;gap:4px}
+.footer{border-top:1px solid rgba(255,255,255,.06);padding-top:12px;margin-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:8px;color:rgba(255,255,255,.15);letter-spacing:1px}
+.footer a{color:rgba(255,255,255,.25)}
+/* InfoTip */
+.itip{position:relative;display:inline-flex;align-items:center;margin-left:5px}
+.itip-btn{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;font-size:9px;font-weight:700;font-family:serif;font-style:italic;line-height:1;cursor:pointer;user-select:none;transition:all .2s}
+.itip-pop{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;width:280px;padding:10px 12px;background:#141420;border:1px solid rgba(255,255,255,.15);border-radius:6px;font-size:11px;line-height:1.6;color:rgba(255,255,255,.7);z-index:10000;box-shadow:0 4px 20px rgba(0,0,0,.5);white-space:pre-line;display:none;font-style:normal;font-weight:400;font-family:'IBM Plex Mono',monospace}
+.itip-pop::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:rgba(255,255,255,.15)}
+.itip:hover .itip-pop,.itip.active .itip-pop{display:block}
+/* Blink */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.blink{animation:blink 1.6s infinite}
+.gauge-center{text-align:center;margin:20px 0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 20px;border-radius:4px;font-size:13px;font-weight:700;letter-spacing:2px}
+.loading{text-align:center;padding:60px 20px;color:rgba(255,255,255,.3)}
+</style>
+</head>
+<body>
+<div class="glow" id="glow"></div>
+<div class="scan"></div>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <div class="title">CRASH SENTINEL
+      <span class="itip" onclick="this.classList.toggle('active')"><span class="itip-btn" style="border:1px solid rgba(255,255,255,.4);color:rgba(255,255,255,.4)">i</span><span class="itip-pop">Crash Sentinel is a multi-signal economic early warning system. It monitors 31 financial indicators across 7 categories, computing z-score deviations from 60-day rolling baselines. When multiple independent signals deviate simultaneously, it suggests systemic stress — not random noise.</span></span>
+    </div>
+    <div class="sub">v1.1 — SHERLOCK + JOLTS + XAU/XAG — LIVE</div>
+  </div>
+  <div style="text-align:right">
+    <div class="time" id="clock"></div>
+    <div class="date" id="dateStr"></div>
+  </div>
+</div>
+
+<!-- SCAN BUTTON -->
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:20px;flex-wrap:wrap">
+  <button class="btn" id="scanBtn" onclick="doScan()">▶ SCAN NOW</button>
+  <span id="cacheNote" style="font-size:10px;color:rgba(255,255,255,.25)"></span>
+  <span id="errorNote" style="font-size:11px;color:#ef4444"></span>
+</div>
+
+<!-- CONTENT -->
+<div id="content"></div>
+
+<!-- FOOTER -->
+<div class="footer" id="footer" style="display:none">
+  <span>WHEN THE ANCHOR PEOPLE WALK DIFFERENT, SOMETHING IS COMING.</span>
+  <span>Yahoo Finance + BLS | Cache: 15min | <a href="https://github.com/wisehelmblack/crash-sentinel">GitHub</a></span>
+</div>
+
+</div>
+
+<script>
+// ─── Clock ───
+function updateClock(){
+  const now=new Date()
+  document.getElementById('clock').textContent=now.toLocaleTimeString('en-GB')
+  document.getElementById('dateStr').textContent=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase()
+}
+setInterval(updateClock,1000);updateClock()
+
+// ─── Colors ───
+const SEV={normal:{color:'#22c55e',label:'NOMINAL'},elevated:{color:'#eab308',label:'ELEVATED'},warning:{color:'#f97316',label:'WARNING'},critical:{color:'#ef4444',label:'CRITICAL'},nodata:{color:'#6b7280',label:'AWAITING'}}
+const CAT_ORDER=['Liquidity Stress','Bond Internals','Energy','Real Economy','Equity Internals','Currency Stress','Shadow Signals']
+const CAT_INFO={
+  'Liquidity Stress':'Measures how freely money flows between institutions. When banks and funds stop trusting each other, credit spreads widen and bond ETFs drop. Liquidity stress is where crashes actually begin — before they show up in stock prices.',
+  'Bond Internals':'Tracks government bond behavior for signs of fear, flight-to-safety, and inflation expectations. Yield curve inversions have preceded every modern recession. Bond markets are the "smart money."',
+  'Energy':'Monitors oil, gas, and energy equities. Energy price spikes act as a tax on every economy. Above $100/barrel, import-dependent economies start breaking.',
+  'Real Economy':'Watches industrial activity, transport, copper demand, and labor market data. These are the real-world signals — goods moving, factories running, people getting hired.',
+  'Equity Internals':'Looks beneath the headline index at volatility, market breadth, and small cap behavior. A rising index can hide rotting internals.',
+  'Currency Stress':'Tracks dollar strength, gold/silver ratio, and EM currencies. A surging dollar creates a global shortage of the world\'s reserve currency.',
+  'Shadow Signals':'Gold, silver, and Bitcoin — alternative stores of value that spike when trust in traditional systems erodes.',
+}
+
+function tip(text,color='rgba(255,255,255,.25)'){
+  return `<span class="itip" onclick="event.stopPropagation();this.classList.toggle('active')"><span class="itip-btn" style="border:1px solid ${color};color:${color}">i</span><span class="itip-pop">${text.replace(/'/g,'&#39;')}</span></span>`
+}
+
+function ztip(val,mu,sig,z){
+  const dir=z>0?'above':'below'
+  const br=Math.abs(z)>2?'This is a statistically significant deviation (>2σ), flagged as BREACH.':'Within normal range.'
+  const c=Math.abs(z)>2?'#ef4444':'rgba(255,255,255,.2)'
+  return tip(`Current: ${val}\n60-day avg: ${mu}\nStd dev: ${sig}\nZ-score: ${z>0?'+':''}${z.toFixed(2)}\n\n${Math.abs(z).toFixed(1)} std devs ${dir} the 60-day mean. ${br}`,c)
+}
+
+// ─── Render ───
+function render(d){
+  const s=SEV[d.severity]||SEV.nodata
+  document.getElementById('glow').style.background=`radial-gradient(ellipse,${s.color}15,transparent 70%)`
+  document.getElementById('footer').style.display='flex'
+
+  const pct=Math.min(d.composite/4,1),circ=2*Math.PI*80,off=circ*(1-pct*.75)
+  let h=''
+
+  // Alert
+  if(d.alert||d.sherlock?.alert){
+    let msgs=[]
+    if(d.alert)msgs.push(`${d.cats_breach}/7 CATEGORIES BREACHING`)
+    if(d.sherlock?.alert)msgs.push(`SHERLOCK: ${d.sherlock.deviated}/${d.sherlock.total} ANCHORS DEVIATED`)
+    h+=`<div class="alert-box"><span class="blink" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ef4444;box-shadow:0 0 10px #ef4444"></span><span class="alert-text">SYSTEM ALERT — ${msgs.join(' + ')}</span>${tip('System alert triggers when 4+ of 7 categories breach simultaneously, or when Sherlock detects 3+ volume anchors deviating. Both indicate correlated anomalies across independent systems.','#ef4444')}</div>`
+  }
+
+  // Gauge
+  h+=`<div class="gauge-center"><svg width="200" height="170" viewBox="0 0 200 170"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#22c55e"/><stop offset="33%" stop-color="#eab308"/><stop offset="66%" stop-color="#f97316"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs><circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="12" stroke-dasharray="${circ*.75} ${circ*.25}" transform="rotate(135 100 100)" stroke-linecap="round"/><circle cx="100" cy="100" r="80" fill="none" stroke="url(#g)" stroke-width="12" stroke-dasharray="${circ*.75} ${circ*.25}" stroke-dashoffset="${off}" transform="rotate(135 100 100)" stroke-linecap="round" style="transition:stroke-dashoffset 1.5s"/><text x="100" y="88" text-anchor="middle" fill="${s.color}" font-size="36" font-weight="700" font-family="IBM Plex Mono,monospace">${d.composite}σ</text><text x="100" y="112" text-anchor="middle" fill="rgba(255,255,255,.5)" font-size="10" letter-spacing="3" font-family="IBM Plex Mono,monospace">COMPOSITE</text></svg><br><span class="badge" style="background:${s.color}15;border:1px solid ${s.color};color:${s.color}">${s.label}${tip('Composite score is the average of all category z-scores. Higher = more categories behaving abnormally simultaneously.',s.color)}</span></div>`
+
+  // Sherlock
+  if(d.sherlock){
+    const sh=d.sherlock
+    const sc=sh.alert?'#ef4444':sh.deviated>=2?'#eab308':'#22c55e'
+    const sl=sh.alert?'WALKING DIFFERENT':sh.deviated>=2?'RESTLESS':'ROUTINE'
+    h+=`<div class="card" style="border:1px solid ${sc}55;box-shadow:0 0 20px ${sc}22;cursor:default"><div class="card-hdr"><div><span style="font-size:14px;font-weight:700;color:#ddd;letter-spacing:2px">🔍 SHERLOCK MODEL</span>${tip("Inspired by Sherlock Holmes' method of watching 'anchor people' whose clockwork routines make any deviation meaningful. We watch 7 institutional trading volume anchors. When 3+ deviate simultaneously, something systemic is different.","#ddd")}<div style="font-size:9px;color:rgba(255,255,255,.27);letter-spacing:1px;margin-top:2px">INSTITUTIONAL VOLUME ANCHORS</div></div><div style="text-align:right"><div style="font-size:24px;font-weight:700;color:${sc}">${sh.deviated}/${sh.total}</div><div style="font-size:10px;color:${sc};font-weight:600;letter-spacing:1px">${sl}</div></div></div><div class="bar-bg"><div class="bar-fill" style="width:${(sh.deviated/sh.total)*100}%;background:${sc};box-shadow:0 0 6px ${sc}"></div></div>`
+    for(const a of sh.anchors){
+      if(a.z==null){h+=`<div style="padding:4px 0;font-size:12px;color:#555;border-bottom:1px solid #1a1a2e">${a.name} — no data</div>`;continue}
+      const vf=a.vol!=null?a.vol.toLocaleString():'?'
+      const mf=a.mu!=null?Math.round(a.mu).toLocaleString():'?'
+      h+=`<div class="ind-row"><span style="color:${a.deviated?'#eee':'#666'}">${a.deviated?'⚠ ':'  '}${a.name}${tip(a.desc+'. Volume compared against 30-day rolling average. z>2.0 = this anchor is walking different.')}</span><span><span style="color:#888;font-size:10px">vol ${vf} </span><span style="color:${a.deviated?sc:'#555'};font-weight:600;margin-left:8px">z=${a.z.toFixed(1)}</span></span></div><div class="ind-desc">${a.desc} | avg vol ${mf}</div>`
+    }
+    h+=`</div>`
+  }
+
+  // Top breaching
+  const breaching=d.indicators.filter(i=>i.breach).sort((a,b)=>Math.abs(b.z||0)-Math.abs(a.z||0))
+  h+=`<div class="section-box"><div class="section-title">TOP DEVIATING (${breaching.length} BREACHING)${tip("Indicators sorted by absolute z-score. 'BREACHING' means |z|>2.0 — a statistically significant deviation from the 60-day baseline.")}</div>`
+  if(breaching.length===0){h+=`<div style="color:rgba(255,255,255,.2);font-size:12px;text-align:center;padding:16px">All within baseline</div>`}
+  else{for(const b of breaching.slice(0,12)){
+    const bc=SEV[d.categories[b.cat]?.sev]?.color||'#666'
+    h+=`<div class="breach-row"><div style="display:flex;align-items:center;gap:8px"><div style="width:3px;height:16px;background:${bc};border-radius:1px"></div><span style="font-size:12px;color:#ccc">${b.name}</span></div><div style="font-size:12px;display:inline-flex;align-items:center"><span style="color:#888">${b.val}</span><span style="color:${bc};font-weight:600;margin-left:10px">z=${b.z>0?'+':''}${b.z?.toFixed(2)}</span>${b.mu!=null?ztip(b.val,b.mu,b.sig,b.z):''}</div></div>`
+  }}
+  h+=`</div>`
+
+  // Categories
+  h+=`<div class="section-title">SIGNAL CATEGORIES${tip("Z-score measures how far today's value deviates from its 60-day average. z=0 is average. |z|>2 means <2.5% probability. |z|>3 means <0.1%. Multiple breaches = systemic signal.")}</div>`
+  for(const cat of CAT_ORDER){
+    const sc=d.categories[cat];if(!sc)continue
+    const cfg=SEV[sc.sev]||SEV.nodata
+    const barW=Math.min((sc.avgz/4)*100,100)
+    const catInds=d.indicators.filter(i=>i.cat===cat&&i.val!=null).sort((a,b)=>Math.abs(b.z||0)-Math.abs(a.z||0))
+    const cid='cat_'+cat.replace(/\s/g,'_')
+    h+=`<div class="card" style="border:1px solid ${sc.breach>0?cfg.color+'55':'#1a1a2e'};box-shadow:${sc.breach>0?'0 0 15px '+cfg.color+'22':'none'}" onclick="var el=document.getElementById('${cid}');el.style.display=el.style.display==='none'?'block':'none'"><div class="card-hdr"><span class="card-title">${sc.breach>0?'🔴 ':''}${cat.toUpperCase()}${CAT_INFO[cat]?tip(CAT_INFO[cat],cfg.color):''}</span><span style="font-size:11px;color:${cfg.color};font-weight:700;letter-spacing:1px">${cfg.label}</span></div><div class="bar-bg"><div class="bar-fill" style="width:${barW}%;background:${cfg.color};box-shadow:0 0 6px ${cfg.color}"></div></div><div class="stats"><span>AVG |z| <b style="color:${cfg.color}">${sc.avgz}</b></span><span>MAX |z| <b style="color:#999">${sc.maxz}</b></span><span>BREACH <b style="color:${sc.breach>0?cfg.color:'#999'}">${sc.breach}/${sc.total}</b></span></div><div id="${cid}" style="display:none;margin-top:8px">`
+    for(const ind of catInds){
+      const iz=ind.z||0,ib=ind.breach
+      h+=`<div class="ind-row"><span style="color:${ib?'#eee':'#666'};display:inline-flex;align-items:center">${ib?'▲ ':'  '}${ind.name}${tip(ind.desc+(ind.mu?'\n\nChanges signal shifts in '+cat.toLowerCase()+'. Compared against 60-day rolling baseline.':''))}</span><span style="display:inline-flex;align-items:center"><span style="color:#999">${ind.val}</span><span style="color:${ib?cfg.color:'#888'};font-weight:600;margin-left:8px">z=${iz>0?'+':''}${iz.toFixed(2)}</span>${ind.mu!=null?ztip(ind.val,ind.mu,ind.sig,iz):''}</span></div><div class="ind-desc">${ind.desc}${ind.mu?' | base '+ind.mu+'±'+ind.sig:''}</div>`
+    }
+    h+=`</div></div>`
+  }
+
+  document.getElementById('content').innerHTML=h
+}
+
+// ─── Scan ───
+async function doScan(){
+  const btn=document.getElementById('scanBtn')
+  btn.disabled=true;btn.textContent='SCANNING...'
+  document.getElementById('errorNote').textContent=''
+  document.getElementById('cacheNote').textContent=''
+
+  try{
+    const res=await fetch('/api/scan')
+    if(!res.ok)throw new Error('HTTP '+res.status)
+    const data=await res.json()
+    render(data)
+    if(data.cached)document.getElementById('cacheNote').textContent='CACHED — '+new Date(data.ts).toLocaleTimeString('en-GB')
+  }catch(e){
+    document.getElementById('errorNote').textContent=e.message||'Scan failed'
+  }
+  btn.disabled=false;btn.textContent='▶ SCAN NOW'
+}
+
+// Auto-scan on load
+doScan()
+
+// Close tooltips on outside click
+document.addEventListener('click',()=>{document.querySelectorAll('.itip.active').forEach(el=>el.classList.remove('active'))})
+</script>
+</body>
+</html>
