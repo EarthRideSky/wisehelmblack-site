@@ -186,7 +186,18 @@ function render(d){
 }
 
 // ─── Scan ───
+let lastScan = 0
+const SCAN_COOLDOWN = 5 * 60 * 1000 // 5 minutes
+
 async function doScan(){
+  const now = Date.now()
+  if (lastScan && (now - lastScan) < SCAN_COOLDOWN) {
+    const remaining = Math.ceil((SCAN_COOLDOWN - (now - lastScan)) / 1000)
+    document.getElementById('errorNote').textContent = `Next scan available in ${remaining}s`
+    return
+  }
+  lastScan = now
+  
   const btn=document.getElementById('scanBtn')
   btn.disabled=true;btn.textContent='SCANNING...'
   document.getElementById('errorNote').textContent=''
